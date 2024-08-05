@@ -27,16 +27,15 @@ async def news():
 
     print(soup.find('title').text)
     news_list = []
-    news_info = soup.find_all('div', attrs={'class': 'col-12 col-lg-6 col-md-6'})
+    news_info = soup.find_all('div', class_='col-12 col-lg-6 col-md-6')
     if not news_info:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Noticias no encontradas")
-    #print(news)
     i = 1
     for new_info in news_info:
         image = new_info.find('img')['src']
-        title = new_info.find('h3', attrs={'class': 'post-title'})
-        date = new_info.find('p', attrs={'class': 'post-date'}).text
+        title = new_info.find('h3', class_='post-title')
+        date = new_info.find('p', class_='post-date').text
         link = title.find('a')['href']
 
         new = New(id=i, image=image,
